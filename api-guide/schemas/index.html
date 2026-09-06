@@ -1,822 +1,3345 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta charset="utf-8">
-  <title>Schemas - Django REST framework</title>
-  <link href="../../img/favicon.ico" rel="icon" type="image/x-icon">
-  <link rel="canonical" href="https://www.django-rest-framework.org/api-guide/schemas/" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Django, API, REST, Schemas">
-  <meta name="author" content="Tom Christie">
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Django REST framework - Web APIs for Django">
+      
+      
+      
+        <link rel="canonical" href="https://www.django-rest-framework.org/api-guide/schemas/">
+      
+      
+        <link rel="prev" href="../metadata/">
+      
+      
+        <link rel="next" href="../format-suffixes/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../theme/img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Schemas - Django REST framework</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
 
-  <!-- Le styles -->
-  <link href="../../css/prettify.css" rel="stylesheet">
-  <link href="../../css/bootstrap.css" rel="stylesheet">
-  <link href="../../css/bootstrap-responsive.css" rel="stylesheet">
-  <link href="../../css/default.css" rel="stylesheet">
 
-  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../theme/stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../theme/stylesheets/prettify.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
 
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-18852272-2']);
-    _gaq.push(['_trackPageview']);
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#schema" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
 
-    (function() {
-      var ga = document.createElement('script');
-      ga.type = 'text/javascript';
-      ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+  
 
-  <style>
-  #sidebarInclude img {
-      margin-bottom: 10px;
-  }
-  #sidebarInclude a.promo {
-      color: black;
-  }
-    @media (max-width: 767px) {
-      div.promo {
-        display: none;
-      }
-    }
-  </style>
-</head>
-<body onload="prettyPrint()" class="-page">
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Django REST framework" class="md-header__button md-logo" aria-label="Django REST framework" data-md-component="logo">
+      
+  <img src="../../theme/img/logo.png" alt="logo">
 
-  <div class="wrapper">
-        <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="repo-link btn btn-primary btn-small" href="https://github.com/encode/django-rest-framework/tree/master">GitHub</a>
-          <a class="repo-link btn btn-inverse btn-small " rel="prev" href="../format-suffixes/">
-            Next <i class="icon-arrow-right icon-white"></i>
-          </a>
-          <a class="repo-link btn btn-inverse btn-small " rel="next" href="../metadata/">
-            <i class="icon-arrow-left icon-white"></i> Previous
-          </a>
-          <a id="search_modal_show" class="repo-link btn btn-inverse btn-small" href="#mkdocs_search_modal" data-toggle="modal" data-target="#mkdocs_search_modal"><i class="icon-search icon-white"></i> Search</a>
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="https://www.django-rest-framework.org/">Django REST framework</a>
-          <div class="nav-collapse collapse">
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Django REST framework
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
             
-            <!-- Main navigation -->
-            <ul class="nav navbar-nav">
-               
-              <li >
-                <a href="../..">Home</a>
-              </li>
-                
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorial <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  
-                  <li >
-                    <a href="../../tutorial/quickstart/">Quickstart</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../tutorial/1-serialization/">1 - Serialization</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../tutorial/2-requests-and-responses/">2 - Requests and responses</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../tutorial/3-class-based-views/">3 - Class based views</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../tutorial/4-authentication-and-permissions/">4 - Authentication and permissions</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../tutorial/5-relationships-and-hyperlinked-apis/">5 - Relationships and hyperlinked APIs</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../tutorial/6-viewsets-and-routers/">6 - Viewsets and routers</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../tutorial/7-schemas-and-client-libraries/">7 - Schemas and client libraries</a>
-                  </li>
-                  
-                </ul>
-              </li>
-                
-              <li class="dropdown active">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">API Guide <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  
-                  <li >
-                    <a href="../requests/">Requests</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../responses/">Responses</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../views/">Views</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../generic-views/">Generic views</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../viewsets/">Viewsets</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../routers/">Routers</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../parsers/">Parsers</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../renderers/">Renderers</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../serializers/">Serializers</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../fields/">Serializer fields</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../relations/">Serializer relations</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../validators/">Validators</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../authentication/">Authentication</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../permissions/">Permissions</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../caching/">Caching</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../throttling/">Throttling</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../filtering/">Filtering</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../pagination/">Pagination</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../versioning/">Versioning</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../content-negotiation/">Content negotiation</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../metadata/">Metadata</a>
-                  </li>
-                  
-                  <li class="active" >
-                    <a href="./">Schemas</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../format-suffixes/">Format suffixes</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../reverse/">Returning URLs</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../exceptions/">Exceptions</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../status-codes/">Status codes</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../testing/">Testing</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../settings/">Settings</a>
-                  </li>
-                  
-                </ul>
-              </li>
-                
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Topics <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  
-                  <li >
-                    <a href="../../topics/documenting-your-api/">Documenting your API</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../topics/api-clients/">API Clients</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../topics/internationalization/">Internationalization</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../topics/ajax-csrf-cors/">AJAX, CSRF & CORS</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../topics/html-and-forms/">HTML & Forms</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../topics/browser-enhancements/">Browser Enhancements</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../topics/browsable-api/">The Browsable API</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../topics/rest-hypermedia-hateoas/">REST, Hypermedia & HATEOAS</a>
-                  </li>
-                  
-                </ul>
-              </li>
-                
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Community <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  
-                  <li >
-                    <a href="../../community/tutorials-and-resources/">Tutorials and Resources</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../community/third-party-packages/">Third Party Packages</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../community/contributing/">Contributing to REST framework</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../community/project-management/">Project management</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../community/release-notes/">Release Notes</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../community/3.9-announcement/">3.9 Announcement</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../community/3.8-announcement/">3.8 Announcement</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../community/3.7-announcement/">3.7 Announcement</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../community/3.6-announcement/">3.6 Announcement</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../community/3.5-announcement/">3.5 Announcement</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../community/3.4-announcement/">3.4 Announcement</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../community/3.3-announcement/">3.3 Announcement</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../community/3.2-announcement/">3.2 Announcement</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../community/3.1-announcement/">3.1 Announcement</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../community/3.0-announcement/">3.0 Announcement</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../community/kickstarter-announcement/">Kickstarter Announcement</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../community/mozilla-grant/">Mozilla Grant</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../community/funding/">Funding</a>
-                  </li>
-                  
-                  <li >
-                    <a href="../../community/jobs/">Jobs</a>
-                  </li>
-                  
-                </ul>
-              </li>
-               
-
-            </ul>
+              Schemas
             
-          </div>
-          <!--/.nav-collapse -->
-
+          </span>
         </div>
       </div>
     </div>
-
-    <div class="body-content">
-      <div class="container-fluid">
-        <!-- Search Modal -->
-        <div id="mkdocs_search_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3 id="myModalLabel">Documentation search</h3>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
           </div>
-
-          <div class="modal-body">
-            <form role="form" autocomplete="off">
-              <div class="form-group">
-                <input type="text" name="q" class="form-control" placeholder="Search..." id="mkdocs-search-query">
-              </div>
-            </form>
-            <div id="mkdocs-search-results"></div>
-          </div>
-
-          <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/encode/django-rest-framework" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
 
-        <div class="row-fluid">
-          <div class="span3">
-            <div id="table-of-contents">
-              <ul class="nav nav-list side-nav well sidebar-nav-fixed">
-                
+      </a>
+    </li>
+  
 
-                
-                  <li class="main">
-                    <a href="#schemas">Schemas</a>
-                  </li>
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorial/quickstart/" class="md-tabs__link">
+          
+  
+  
+  Tutorial
 
-                  
-                    <li>
-                      <a href="#install-core-api-pyyaml">Install Core API &amp; PyYAML</a>
-                    </li>
-                  
-                    <li>
-                      <a href="#quickstart">Quickstart</a>
-                    </li>
-                  
-                    <li>
-                      <a href="#internal-schema-representation">Internal schema representation</a>
-                    </li>
-                  
-                    <li>
-                      <a href="#schema-output-formats">Schema output formats</a>
-                    </li>
-                  
-                    <li>
-                      <a href="#schemas-vs-hypermedia">Schemas vs Hypermedia</a>
-                    </li>
-                  
-                
-                  <li class="main">
-                    <a href="#creating-a-schema">Creating a schema</a>
-                  </li>
+        </a>
+      </li>
+    
+  
 
-                  
-                    <li>
-                      <a href="#manual-schema-specification">Manual Schema Specification</a>
-                    </li>
-                  
-                    <li>
-                      <a href="#automatic-schema-generation">Automatic Schema Generation</a>
-                    </li>
-                  
-                    <li>
-                      <a href="#per-view-schema-customisation">Per-View Schema Customisation</a>
-                    </li>
-                  
-                
-                  <li class="main">
-                    <a href="#adding-a-schema-view">Adding a schema view</a>
-                  </li>
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../requests/" class="md-tabs__link">
+          
+  
+  
+  API Guide
 
-                  
-                    <li>
-                      <a href="#the-get_schema_view-shortcut">The get_schema_view shortcut</a>
-                    </li>
-                  
-                    <li>
-                      <a href="#using-an-explicit-schema-view">Using an explicit schema view</a>
-                    </li>
-                  
-                    <li>
-                      <a href="#explicit-schema-definition">Explicit schema definition</a>
-                    </li>
-                  
-                
-                  <li class="main">
-                    <a href="#schemas-as-documentation">Schemas as documentation</a>
-                  </li>
+        </a>
+      </li>
+    
+  
 
-                  
-                    <li>
-                      <a href="#examples">Examples</a>
-                    </li>
-                  
-                
-                  <li class="main">
-                    <a href="#api-reference">API Reference</a>
-                  </li>
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../topics/documenting-your-api/" class="md-tabs__link">
+          
+  
+  
+  Topics
 
-                  
-                    <li>
-                      <a href="#schemagenerator">SchemaGenerator</a>
-                    </li>
-                  
-                    <li>
-                      <a href="#autoschema">AutoSchema</a>
-                    </li>
-                  
-                    <li>
-                      <a href="#manualschema">ManualSchema</a>
-                    </li>
-                  
-                    <li>
-                      <a href="#core-api">Core API</a>
-                    </li>
-                  
-                
-                  <li class="main">
-                    <a href="#third-party-packages">Third party packages</a>
-                  </li>
+        </a>
+      </li>
+    
+  
 
-                  
-                    <li>
-                      <a href="#drf-yasg-yet-another-swagger-generator">drf-yasg - Yet Another Swagger Generator</a>
-                    </li>
-                  
-                
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../community/tutorials-and-resources/" class="md-tabs__link">
+          
+  
+  
+  Community
 
-                  <div class="promo">
-                    <hr/>
-                    <div id="sidebarInclude">
-                  </div>
-              </ul>
+        </a>
+      </li>
+    
+  
 
-            </div>
-          </div>
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
 
-          <div id="main-content" class="span9">
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Django REST framework" class="md-nav__button md-logo" aria-label="Django REST framework" data-md-component="logo">
+      
+  <img src="../../theme/img/logo.png" alt="logo">
+
+    </a>
+    Django REST framework
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/encode/django-rest-framework" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorial
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
-                  <a class="github" href="https://github.com/encode/django-rest-framework/tree/master/rest_framework/schemas.py">
-                    <span class="label label-info">schemas.py</span>
-                  </a>
-                
-              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
 
-              <h1 id="schemas"><a class="toclink" href="#schemas">Schemas</a></h1>
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/1-serialization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1 - Serialization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/2-requests-and-responses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2 - Requests and responses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/3-class-based-views/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3 - Class based views
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/4-authentication-and-permissions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4 - Authentication and permissions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/5-relationships-and-hyperlinked-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5 - Relationships and hyperlinked APIs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/6-viewsets-and-routers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6 - Viewsets and routers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../requests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../responses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Responses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../views/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Views
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generic-views/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generic views
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../viewsets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Viewsets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../routers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Routers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parsers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parsers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../renderers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Renderers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../serializers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serializers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fields/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serializer fields
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../relations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Serializer relations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../validators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../permissions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Permissions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../caching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../throttling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Throttling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../filtering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Filtering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pagination/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pagination
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../content-negotiation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Content negotiation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metadata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metadata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schemas
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generating-an-openapi-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generating an OpenAPI Schema
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Generating an OpenAPI Schema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-static-schema-with-the-generateschema-management-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generating a static schema with the generateschema management command
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-dynamic-schema-with-schemaview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generating a dynamic schema with SchemaView
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Generating a dynamic schema with SchemaView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_schema_view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_schema_view()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schemagenerator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SchemaGenerator
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SchemaGenerator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_schemaself-requestnone-publicfalse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_schema(self, request=None, public=False)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoschema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AutoSchema
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AutoSchema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autoschema-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AutoSchema methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AutoSchema methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_components()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_component_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_component_name()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_reference()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#map_serializer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        map_serializer()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#map_field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        map_field()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_tags()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_operation()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_operation_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_operation_id()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_operation_id_base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_operation_id_base()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_serializer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_serializer()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_request_serializer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_request_serializer()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_response_serializer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_response_serializer()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autoschema__init__-kwargs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AutoSchema.__init__() kwargs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../format-suffixes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Format suffixes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reverse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Returning URLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status-codes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Status codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Settings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/documenting-your-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documenting your API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/internationalization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Internationalization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/ajax-csrf-cors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AJAX, CSRF & CORS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/html-and-forms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTML & Forms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/browser-enhancements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Browser Enhancements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/browsable-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The Browsable API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../topics/rest-hypermedia-hateoas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    REST, Hypermedia & HATEOAS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Community
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/tutorials-and-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials and Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/third-party-packages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Third Party Packages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing to REST framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/project-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/3.16-announcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.16 Announcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/3.15-announcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.15 Announcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/3.14-announcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.14 Announcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/3.13-announcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.13 Announcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/3.12-announcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.12 Announcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/3.11-announcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.11 Announcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/3.10-announcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.10 Announcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/3.9-announcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.9 Announcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/3.8-announcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.8 Announcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/3.7-announcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.7 Announcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/3.6-announcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.6 Announcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/3.5-announcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.5 Announcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/3.4-announcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.4 Announcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/3.3-announcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.3 Announcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/3.2-announcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.2 Announcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/3.1-announcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.1 Announcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/3.0-announcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.0 Announcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/kickstarter-announcement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kickstarter Announcement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/mozilla-grant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mozilla Grant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../community/jobs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Jobs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generating-an-openapi-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generating an OpenAPI Schema
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Generating an OpenAPI Schema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-static-schema-with-the-generateschema-management-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generating a static schema with the generateschema management command
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-dynamic-schema-with-schemaview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generating a dynamic schema with SchemaView
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Generating a dynamic schema with SchemaView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_schema_view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_schema_view()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schemagenerator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SchemaGenerator
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SchemaGenerator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_schemaself-requestnone-publicfalse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_schema(self, request=None, public=False)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#autoschema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AutoSchema
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AutoSchema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#autoschema-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AutoSchema methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AutoSchema methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_components()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_component_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_component_name()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_reference()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#map_serializer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        map_serializer()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#map_field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        map_field()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_tags()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_operation()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_operation_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_operation_id()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_operation_id_base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_operation_id_base()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_serializer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_serializer()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_request_serializer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_request_serializer()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_response_serializer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_response_serializer()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autoschema__init__-kwargs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AutoSchema.__init__() kwargs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../requests/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    API Guide
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="schema">Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p>A machine-readable [schema] describes what resources are available via the API, what their URLs are, how they are represented and what operations they support.</p>
-<p>&mdash; Heroku, <a href="https://blog.heroku.com/archives/2014/1/8/json_schema_for_heroku_platform_api">JSON Schema for the Heroku Platform API</a></p>
+<p>&mdash; Heroku, <a href="https://www.heroku.com/blog/json_schema_for_heroku_platform_api/">JSON Schema for the Heroku Platform API</a></p>
 </blockquote>
+<hr />
+<p><strong>Deprecation notice:</strong></p>
+<p>REST framework's built-in support for generating OpenAPI schemas is
+<strong>deprecated</strong> in favor of 3rd party packages that can provide this
+functionality instead. The built-in support will be moved into a separate
+package and then subsequently retired over the next releases.</p>
+<p>As a full-fledged replacement, we recommend the <a href="https://drf-spectacular.readthedocs.io/en/latest/readme.html">drf-spectacular</a> package.
+It has extensive support for generating OpenAPI 3 schemas from
+REST framework APIs, with both automatic and customizable options available.
+For further information please refer to
+<a href="../../topics/documenting-your-api/#drf-spectacular">Documenting your API</a>.</p>
+<hr />
 <p>API schemas are a useful tool that allow for a range of use cases, including
 generating reference documentation, or driving dynamic client libraries that
 can interact with your API.</p>
-<h2 id="install-core-api-pyyaml"><a class="toclink" href="#install-core-api-pyyaml">Install Core API &amp; PyYAML</a></h2>
-<p>You'll need to install the <code>coreapi</code> package in order to add schema support
-for REST framework. You probably also want to install <code>pyyaml</code>, so that you
-can render the schema into the commonly used YAML-based OpenAPI format.</p>
-<pre><code>pip install coreapi pyyaml
-</code></pre>
-<h2 id="quickstart"><a class="toclink" href="#quickstart">Quickstart</a></h2>
-<p>There are two different ways you can serve a schema description for your API.</p>
-<h3 id="generating-a-schema-with-the-generateschema-management-command"><a class="toclink" href="#generating-a-schema-with-the-generateschema-management-command">Generating a schema with the <code>generateschema</code> management command</a></h3>
-<p>To generate a static API schema, use the <code>generateschema</code> management command.</p>
-<pre><code class="shell">$ python manage.py generateschema &gt; schema.yml
-</code></pre>
-
+<p>Django REST Framework provides support for automatic generation of
+<a href="https://github.com/OAI/OpenAPI-Specification">OpenAPI</a> schemas.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Schema generation has several moving parts. It's worth having an overview:</p>
+<ul>
+<li><code>SchemaGenerator</code> is a top-level class that is responsible for walking your
+  configured URL patterns, finding <code>APIView</code> subclasses, enquiring for their
+  schema representation, and compiling the final schema object.</li>
+<li><code>AutoSchema</code> encapsulates all the details necessary for per-view schema
+  introspection. Is attached to each view via the <code>schema</code> attribute. You
+  subclass <code>AutoSchema</code> in order to customize your schema.</li>
+<li>The <code>generateschema</code> management command allows you to generate a static schema
+  offline.</li>
+<li>Alternatively, you can route <code>SchemaView</code> to dynamically generate and serve
+  your schema.</li>
+<li><code>settings.DEFAULT_SCHEMA_CLASS</code> allows you to specify an <code>AutoSchema</code>
+  subclass to serve as your project's default.</li>
+</ul>
+<p>The following sections explain more.</p>
+<h2 id="generating-an-openapi-schema">Generating an OpenAPI Schema<a class="headerlink" href="#generating-an-openapi-schema" title="Permanent link">&para;</a></h2>
+<h3 id="install-dependencies">Install dependencies<a class="headerlink" href="#install-dependencies" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code>pip install pyyaml uritemplate inflection
+</code></pre></div>
+<ul>
+<li><code>pyyaml</code> is used to generate schema into YAML-based OpenAPI format.</li>
+<li><code>uritemplate</code> is used internally to get parameters in path.</li>
+<li><code>inflection</code> is used to pluralize operations more appropriately in the list endpoints.</li>
+</ul>
+<h3 id="generating-a-static-schema-with-the-generateschema-management-command">Generating a static schema with the <code>generateschema</code> management command<a class="headerlink" href="#generating-a-static-schema-with-the-generateschema-management-command" title="Permanent link">&para;</a></h3>
+<p>If your schema is static, you can use the <code>generateschema</code> management command:</p>
+<div class="language-bash highlight"><pre><span></span><code>./manage.py<span class="w"> </span>generateschema<span class="w"> </span>--file<span class="w"> </span>openapi-schema.yml
+</code></pre></div>
 <p>Once you've generated a schema in this way you can annotate it with any
 additional information that cannot be automatically inferred by the schema
 generator.</p>
 <p>You might want to check your API schema into version control and update it
 with each new release, or serve the API schema from your site's static media.</p>
-<h3 id="adding-a-view-with-get_schema_view"><a class="toclink" href="#adding-a-view-with-get_schema_view">Adding a view with <code>get_schema_view</code></a></h3>
-<p>To add a dynamically generated schema view to your API, use <code>get_schema_view</code>.</p>
-<pre><code class="python">from rest_framework.schemas import get_schema_view
+<h3 id="generating-a-dynamic-schema-with-schemaview">Generating a dynamic schema with <code>SchemaView</code><a class="headerlink" href="#generating-a-dynamic-schema-with-schemaview" title="Permanent link">&para;</a></h3>
+<p>If you require a dynamic schema, because foreign key choices depend on database
+values, for example, you can route a <code>SchemaView</code> that will generate and serve
+your schema on demand.</p>
+<p>To route a <code>SchemaView</code>, use the <code>get_schema_view()</code> helper.</p>
+<p>In <code>urls.py</code>:</p>
+<div class="language-python highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework.schemas</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_schema_view</span>
 
-schema_view = get_schema_view(title=&quot;Example API&quot;)
-
-urlpatterns = [
-    url('^schema$', schema_view),
-    ...
-]
-</code></pre>
-
-<p>See below <a href="#the-get_schema_view-shortcut">for more details</a> on customizing a
-dynamically generated schema view.</p>
-<h2 id="internal-schema-representation"><a class="toclink" href="#internal-schema-representation">Internal schema representation</a></h2>
-<p>REST framework uses <a href="https://www.coreapi.org/">Core API</a> in order to model schema information in
-a format-independent representation. This information can then be rendered
-into various different schema formats, or used to generate API documentation.</p>
-<p>When using Core API, a schema is represented as a <code>Document</code> which is the
-top-level container object for information about the API. Available API
-interactions are represented using <code>Link</code> objects. Each link includes a URL,
-HTTP method, and may include a list of <code>Field</code> instances, which describe any
-parameters that may be accepted by the API endpoint. The <code>Link</code> and <code>Field</code>
-instances may also include descriptions, that allow an API schema to be
-rendered into user documentation.</p>
-<p>Here's an example of an API description that includes a single <code>search</code>
-endpoint:</p>
-<pre><code>coreapi.Document(
-    title='Flight Search API',
-    url='https://api.example.org/',
-    content={
-        'search': coreapi.Link(
-            url='/search/',
-            action='get',
-            fields=[
-                coreapi.Field(
-                    name='from',
-                    required=True,
-                    location='query',
-                    description='City name or airport code.'
-                ),
-                coreapi.Field(
-                    name='to',
-                    required=True,
-                    location='query',
-                    description='City name or airport code.'
-                ),
-                coreapi.Field(
-                    name='date',
-                    required=True,
-                    location='query',
-                    description='Flight date in "YYYY-MM-DD" format.'
-                )
-            ],
-            description='Return flight availability and prices.'
-        )
-    }
-)
-</code></pre>
-<h2 id="schema-output-formats"><a class="toclink" href="#schema-output-formats">Schema output formats</a></h2>
-<p>In order to be presented in an HTTP response, the internal representation
-has to be rendered into the actual bytes that are used in the response.</p>
-<p>REST framework includes a few different renderers that you can use for
-encoding the API schema.</p>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># ...</span>
+    <span class="c1"># Use the `get_schema_view()` helper to add a `SchemaView` to project URLs.</span>
+    <span class="c1">#   * `title` and `description` parameters are passed to `SchemaGenerator`.</span>
+    <span class="c1">#   * Provide view name for use with `reverse()`.</span>
+    <span class="n">path</span><span class="p">(</span>
+        <span class="s2">"openapi"</span><span class="p">,</span>
+        <span class="n">get_schema_view</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">"Your Project"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"API for all things …"</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s2">"1.0.0"</span>
+        <span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">"openapi-schema"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="c1"># ...</span>
+<span class="p">]</span>
+</code></pre></div>
+<h4 id="get_schema_view"><code>get_schema_view()</code><a class="headerlink" href="#get_schema_view" title="Permanent link">&para;</a></h4>
+<p>The <code>get_schema_view()</code> helper takes the following keyword arguments:</p>
 <ul>
-<li><code>renderers.OpenAPIRenderer</code> - Renders into YAML-based <a href="https://openapis.org/">OpenAPI</a>, the most widely used API schema format.</li>
-<li><code>renderers.JSONOpenAPIRenderer</code> - Renders into JSON-based <a href="https://openapis.org/">OpenAPI</a>.</li>
-<li><code>renderers.CoreJSONRenderer</code> - Renders into <a href="https://www.coreapi.org/specification/encoding/#core-json-encoding">Core JSON</a>, a format designed for
-use with the <code>coreapi</code> client library.</li>
-</ul>
-<p><a href="https://www.coreapi.org/specification/encoding/#core-json-encoding">Core JSON</a> is designed as a canonical format for use with Core API.
-REST framework includes a renderer class for handling this media type, which
-is available as <code>renderers.CoreJSONRenderer</code>.</p>
-<h2 id="schemas-vs-hypermedia"><a class="toclink" href="#schemas-vs-hypermedia">Schemas vs Hypermedia</a></h2>
-<p>It's worth pointing out here that Core API can also be used to model hypermedia
-responses, which present an alternative interaction style to API schemas.</p>
-<p>With an API schema, the entire available interface is presented up-front
-as a single endpoint. Responses to individual API endpoints are then typically
-presented as plain data, without any further interactions contained in each
-response.</p>
-<p>With Hypermedia, the client is instead presented with a document containing
-both data and available interactions. Each interaction results in a new
-document, detailing both the current state and the available interactions.</p>
-<p>Further information and support on building Hypermedia APIs with REST framework
-is planned for a future version.</p>
-<hr />
-<h1 id="creating-a-schema"><a class="toclink" href="#creating-a-schema">Creating a schema</a></h1>
-<p>REST framework includes functionality for auto-generating a schema,
-or allows you to specify one explicitly.</p>
-<h2 id="manual-schema-specification"><a class="toclink" href="#manual-schema-specification">Manual Schema Specification</a></h2>
-<p>To manually specify a schema you create a Core API <code>Document</code>, similar to the
-example above.</p>
-<pre><code>schema = coreapi.Document(
-    title='Flight Search API',
-    content={
-        ...
-    }
-)
-</code></pre>
-<h2 id="automatic-schema-generation"><a class="toclink" href="#automatic-schema-generation">Automatic Schema Generation</a></h2>
-<p>Automatic schema generation is provided by the <code>SchemaGenerator</code> class.</p>
-<p><code>SchemaGenerator</code> processes a list of routed URL patterns and compiles the
-appropriately structured Core API Document.</p>
-<p>Basic usage is just to provide the title for your schema and call
-<code>get_schema()</code>:</p>
-<pre><code>generator = schemas.SchemaGenerator(title='Flight Search API')
-schema = generator.get_schema()
-</code></pre>
-<h2 id="per-view-schema-customisation"><a class="toclink" href="#per-view-schema-customisation">Per-View Schema Customisation</a></h2>
-<p>By default, view introspection is performed by an <code>AutoSchema</code> instance
-accessible via the <code>schema</code> attribute on <code>APIView</code>. This provides the
-appropriate Core API <code>Link</code> object for the view, request method and path:</p>
-<pre><code>auto_schema = view.schema
-coreapi_link = auto_schema.get_link(...)
-</code></pre>
-<p>(In compiling the schema, <code>SchemaGenerator</code> calls <code>view.schema.get_link()</code> for
-each view, allowed method and path.)</p>
-<hr />
-<p><strong>Note</strong>: For basic <code>APIView</code> subclasses, default introspection is essentially
-limited to the URL kwarg path parameters. For <code>GenericAPIView</code>
-subclasses, which includes all the provided class based views, <code>AutoSchema</code> will
-attempt to introspect serialiser, pagination and filter fields, as well as
-provide richer path field descriptions. (The key hooks here are the relevant
-<code>GenericAPIView</code> attributes and methods: <code>get_serializer</code>, <code>pagination_class</code>,
-<code>filter_backends</code> and so on.)</p>
-<hr />
-<p>To customise the <code>Link</code> generation you may:</p>
-<ul>
+<li><code>title</code>: May be used to provide a descriptive title for the schema definition.</li>
+<li><code>description</code>: Longer descriptive text.</li>
+<li><code>version</code>: The version of the API.</li>
 <li>
-<p>Instantiate <code>AutoSchema</code> on your view with the <code>manual_fields</code> kwarg:</p>
-<pre><code>from rest_framework.views import APIView
-from rest_framework.schemas import AutoSchema
-
-class CustomView(APIView):
-    ...
-    schema = AutoSchema(
-        manual_fields=[
-            coreapi.Field("extra_field", ...),
-        ]
-    )
-</code></pre>
-<p>This allows extension for the most common case without subclassing.</p>
-</li>
-<li>
-<p>Provide an <code>AutoSchema</code> subclass with more complex customisation:</p>
-<pre><code>from rest_framework.views import APIView
-from rest_framework.schemas import AutoSchema
-
-class CustomSchema(AutoSchema):
-    def get_link(...):
-        # Implement custom introspection here (or in other sub-methods)
-
-class CustomView(APIView):
-    ...
-    schema = CustomSchema()
-</code></pre>
-<p>This provides complete control over view introspection.</p>
-</li>
-<li>
-<p>Instantiate <code>ManualSchema</code> on your view, providing the Core API <code>Fields</code> for
-  the view explicitly:</p>
-<pre><code>from rest_framework.views import APIView
-from rest_framework.schemas import ManualSchema
-
-class CustomView(APIView):
-    ...
-    schema = ManualSchema(fields=[
-        coreapi.Field(
-            "first_field",
-            required=True,
-            location="path",
-            schema=coreschema.String()
-        ),
-        coreapi.Field(
-            "second_field",
-            required=True,
-            location="path",
-            schema=coreschema.String()
-        ),
-    ])
-</code></pre>
-<p>This allows manually specifying the schema for some views whilst maintaining
-automatic generation elsewhere.</p>
-</li>
-</ul>
-<p>You may disable schema generation for a view by setting <code>schema</code> to <code>None</code>:</p>
-<pre><code>    class CustomView(APIView):
-        ...
-        schema = None  # Will not appear in schema
-</code></pre>
-<p>This also applies to extra actions for <code>ViewSet</code>s:</p>
-<pre><code>    class CustomViewSet(viewsets.ModelViewSet):
-
-        @action(detail=True, schema=None)
-        def extra_action(self, request, pk=None):
-            ...
-</code></pre>
-<hr />
-<p><strong>Note</strong>: For full details on <code>SchemaGenerator</code> plus the <code>AutoSchema</code> and
-<code>ManualSchema</code> descriptors see the <a href="#api-reference">API Reference below</a>.</p>
-<hr />
-<h1 id="adding-a-schema-view"><a class="toclink" href="#adding-a-schema-view">Adding a schema view</a></h1>
-<p>There are a few different ways to add a schema view to your API, depending on
-exactly what you need.</p>
-<h2 id="the-get_schema_view-shortcut"><a class="toclink" href="#the-get_schema_view-shortcut">The get_schema_view shortcut</a></h2>
-<p>The simplest way to include a schema in your project is to use the
-<code>get_schema_view()</code> function.</p>
-<pre><code>from rest_framework.schemas import get_schema_view
-
-schema_view = get_schema_view(title="Server Monitoring API")
-
-urlpatterns = [
-    url('^$', schema_view),
-    ...
-]
-</code></pre>
-<p>Once the view has been added, you'll be able to make API requests to retrieve
-the auto-generated schema definition.</p>
-<pre><code>$ http http://127.0.0.1:8000/ Accept:application/coreapi+json
-HTTP/1.0 200 OK
-Allow: GET, HEAD, OPTIONS
-Content-Type: application/vnd.coreapi+json
-
-{
-    "_meta": {
-        "title": "Server Monitoring API"
-    },
-    "_type": "document",
-    ...
-}
-</code></pre>
-<p>The arguments to <code>get_schema_view()</code> are:</p>
-<h4 id="title"><a class="toclink" href="#title"><code>title</code></a></h4>
-<p>May be used to provide a descriptive title for the schema definition.</p>
-<h4 id="url"><a class="toclink" href="#url"><code>url</code></a></h4>
-<p>May be used to pass a canonical URL for the schema.</p>
-<pre><code>schema_view = get_schema_view(
+<p><code>url</code>: May be used to pass a canonical base URL for the schema.</p>
+<div class="language-text highlight"><pre><span></span><code>schema_view = get_schema_view(
     title='Server Monitoring API',
     url='https://www.example.org/api/'
 )
-</code></pre>
-<h4 id="urlconf"><a class="toclink" href="#urlconf"><code>urlconf</code></a></h4>
-<p>A string representing the import path to the URL conf that you want
-to generate an API schema for. This defaults to the value of Django's
-ROOT_URLCONF setting.</p>
-<pre><code>schema_view = get_schema_view(
+</code></pre></div>
+</li>
+<li>
+<p><code>urlconf</code>: A string representing the import path to the URL conf that you want
+   to generate an API schema for. This defaults to the value of Django's
+   <code>ROOT_URLCONF</code> setting.</p>
+<div class="language-text highlight"><pre><span></span><code>schema_view = get_schema_view(
     title='Server Monitoring API',
     url='https://www.example.org/api/',
     urlconf='myproject.urls'
 )
-</code></pre>
-<h4 id="renderer_classes"><a class="toclink" href="#renderer_classes"><code>renderer_classes</code></a></h4>
-<p>May be used to pass the set of renderer classes that can be used to render the API root endpoint.</p>
-<pre><code>from rest_framework.schemas import get_schema_view
-from rest_framework.renderers import JSONOpenAPIRenderer
-
-schema_view = get_schema_view(
-    title='Server Monitoring API',
-    url='https://www.example.org/api/',
-    renderer_classes=[JSONOpenAPIRenderer]
-)
-</code></pre>
-<h4 id="patterns"><a class="toclink" href="#patterns"><code>patterns</code></a></h4>
-<p>List of url patterns to limit the schema introspection to. If you only want the <code>myproject.api</code> urls
-to be exposed in the schema:</p>
-<pre><code>schema_url_patterns = [
-    url(r'^api/', include('myproject.api.urls')),
+</code></pre></div>
+</li>
+<li>
+<p><code>patterns</code>: List of url patterns to limit the schema introspection to. If you
+  only want the <code>myproject.api</code> urls to be exposed in the schema:</p>
+<div class="language-text highlight"><pre><span></span><code>schema_url_patterns = [
+    path('api/', include('myproject.api.urls')),
 ]
 
 schema_view = get_schema_view(
@@ -824,382 +3347,318 @@ schema_view = get_schema_view(
     url='https://www.example.org/api/',
     patterns=schema_url_patterns,
 )
-</code></pre>
-<h4 id="generator_class"><a class="toclink" href="#generator_class"><code>generator_class</code></a></h4>
-<p>May be used to specify a <code>SchemaGenerator</code> subclass to be passed to the
-<code>SchemaView</code>.</p>
-<h4 id="authentication_classes"><a class="toclink" href="#authentication_classes"><code>authentication_classes</code></a></h4>
-<p>May be used to specify the list of authentication classes that will apply to the schema endpoint.
-Defaults to <code>settings.DEFAULT_AUTHENTICATION_CLASSES</code></p>
-<h4 id="permission_classes"><a class="toclink" href="#permission_classes"><code>permission_classes</code></a></h4>
-<p>May be used to specify the list of permission classes that will apply to the schema endpoint.
-Defaults to <code>settings.DEFAULT_PERMISSION_CLASSES</code></p>
-<h2 id="using-an-explicit-schema-view"><a class="toclink" href="#using-an-explicit-schema-view">Using an explicit schema view</a></h2>
-<p>If you need a little more control than the <code>get_schema_view()</code> shortcut gives you,
-then you can use the <code>SchemaGenerator</code> class directly to auto-generate the
-<code>Document</code> instance, and to return that from a view.</p>
-<p>This option gives you the flexibility of setting up the schema endpoint
-with whatever behaviour you want. For example, you can apply different
-permission, throttling, or authentication policies to the schema endpoint.</p>
-<p>Here's an example of using <code>SchemaGenerator</code> together with a view to
-return the schema.</p>
-<p><strong>views.py:</strong></p>
-<pre><code>from rest_framework.decorators import api_view, renderer_classes
-from rest_framework import renderers, response, schemas
-
-generator = schemas.SchemaGenerator(title='Bookings API')
-
-@api_view()
-@renderer_classes([renderers.OpenAPIRenderer])
-def schema_view(request):
-    schema = generator.get_schema(request)
-    return response.Response(schema)
-</code></pre>
-<p><strong>urls.py:</strong></p>
-<pre><code>urlpatterns = [
-    url('/', schema_view),
-    ...
-]
-</code></pre>
-<p>You can also serve different schemas to different users, depending on the
-permissions they have available. This approach can be used to ensure that
-unauthenticated requests are presented with a different schema to
-authenticated requests, or to ensure that different parts of the API are
-made visible to different users depending on their role.</p>
-<p>In order to present a schema with endpoints filtered by user permissions,
-you need to pass the <code>request</code> argument to the <code>get_schema()</code> method, like so:</p>
-<pre><code>@api_view()
-@renderer_classes([renderers.OpenAPIRenderer])
-def schema_view(request):
-    generator = schemas.SchemaGenerator(title='Bookings API')
-    return response.Response(generator.get_schema(request=request))
-</code></pre>
-<h2 id="explicit-schema-definition"><a class="toclink" href="#explicit-schema-definition">Explicit schema definition</a></h2>
-<p>An alternative to the auto-generated approach is to specify the API schema
-explicitly, by declaring a <code>Document</code> object in your codebase. Doing so is a
-little more work, but ensures that you have full control over the schema
-representation.</p>
-<pre><code>import coreapi
-from rest_framework.decorators import api_view, renderer_classes
-from rest_framework import renderers, response
-
-schema = coreapi.Document(
-    title='Bookings API',
-    content={
-        ...
-    }
-)
-
-@api_view()
-@renderer_classes([renderers.OpenAPIRenderer])
-def schema_view(request):
-    return response.Response(schema)
-</code></pre>
-<hr />
-<h1 id="schemas-as-documentation"><a class="toclink" href="#schemas-as-documentation">Schemas as documentation</a></h1>
-<p>One common usage of API schemas is to use them to build documentation pages.</p>
-<p>The schema generation in REST framework uses docstrings to automatically
-populate descriptions in the schema document.</p>
-<p>These descriptions will be based on:</p>
+</code></pre></div>
 <ul>
-<li>The corresponding method docstring if one exists.</li>
-<li>A named section within the class docstring, which can be either single line or multi-line.</li>
-<li>The class docstring.</li>
+<li><code>public</code>: May be used to specify if schema should bypass views permissions. Default to False</li>
 </ul>
-<h2 id="examples"><a class="toclink" href="#examples">Examples</a></h2>
-<p>An <code>APIView</code>, with an explicit method docstring.</p>
-<pre><code>class ListUsernames(APIView):
-    def get(self, request):
-        """
-        Return a list of all user names in the system.
-        """
-        usernames = [user.username for user in User.objects.all()]
-        return Response(usernames)
-</code></pre>
-<p>A <code>ViewSet</code>, with an explict action docstring.</p>
-<pre><code>class ListUsernames(ViewSet):
-    def list(self, request):
-        """
-        Return a list of all user names in the system.
-        """
-        usernames = [user.username for user in User.objects.all()]
-        return Response(usernames)
-</code></pre>
-<p>A generic view with sections in the class docstring, using single-line style.</p>
-<pre><code>class UserList(generics.ListCreateAPIView):
-    """
-    get: List all the users.
-    post: Create a new user.
-    """
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = (IsAdminUser,)
-</code></pre>
-<p>A generic viewset with sections in the class docstring, using multi-line style.</p>
-<pre><code>class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-
-    retrieve:
-    Return a user instance.
-
-    list:
-    Return all users, ordered by most recently joined.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-</code></pre>
-<hr />
-<h1 id="api-reference"><a class="toclink" href="#api-reference">API Reference</a></h1>
-<h2 id="schemagenerator"><a class="toclink" href="#schemagenerator">SchemaGenerator</a></h2>
-<p>A class that walks a list of routed URL patterns, requests the schema for each view,
-and collates the resulting CoreAPI Document.</p>
-<p>Typically you'll instantiate <code>SchemaGenerator</code> with a single argument, like so:</p>
-<pre><code>generator = SchemaGenerator(title='Stock Prices API')
-</code></pre>
+</li>
+<li>
+<p><code>generator_class</code>: May be used to specify a <code>SchemaGenerator</code> subclass to be
+  passed to the <code>SchemaView</code>.</p>
+</li>
+<li><code>authentication_classes</code>: May be used to specify the list of authentication
+  classes that will apply to the schema endpoint. Defaults to
+  <code>settings.DEFAULT_AUTHENTICATION_CLASSES</code></li>
+<li><code>permission_classes</code>: May be used to specify the list of permission classes
+  that will apply to the schema endpoint. Defaults to
+  <code>settings.DEFAULT_PERMISSION_CLASSES</code>.</li>
+<li><code>renderer_classes</code>: May be used to pass the set of renderer classes that can
+  be used to render the API root endpoint.</li>
+</ul>
+<h2 id="schemagenerator">SchemaGenerator<a class="headerlink" href="#schemagenerator" title="Permanent link">&para;</a></h2>
+<p><strong>Schema-level customization</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework.schemas.openapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">SchemaGenerator</span>
+</code></pre></div>
+<p><code>SchemaGenerator</code> is a class that walks a list of routed URL patterns, requests
+the schema for each view and collates the resulting OpenAPI schema.</p>
+<p>Typically you won't need to instantiate <code>SchemaGenerator</code> yourself, but you can
+do so like so:</p>
+<div class="language-text highlight"><pre><span></span><code>generator = SchemaGenerator(title='Stock Prices API')
+</code></pre></div>
 <p>Arguments:</p>
 <ul>
-<li><code>title</code> <strong>required</strong> - The name of the API.</li>
-<li><code>url</code> - The root URL of the API schema. This option is not required unless the schema is included under path prefix.</li>
-<li><code>patterns</code> - A list of URLs to inspect when generating the schema. Defaults to the project's URL conf.</li>
-<li><code>urlconf</code> - A URL conf module name to use when generating the schema. Defaults to <code>settings.ROOT_URLCONF</code>.</li>
+<li><code>title</code> <strong>required</strong>: The name of the API.</li>
+<li><code>description</code>: Longer descriptive text.</li>
+<li><code>version</code>: The version of the API. Defaults to <code>0.1.0</code>.</li>
+<li><code>url</code>: The root URL of the API schema. This option is not required unless the schema is included under path prefix.</li>
+<li><code>patterns</code>: A list of URLs to inspect when generating the schema. Defaults to the project's URL conf.</li>
+<li><code>urlconf</code>: A URL conf module name to use when generating the schema. Defaults to <code>settings.ROOT_URLCONF</code>.</li>
 </ul>
-<h3 id="get_schemaself-request"><a class="toclink" href="#get_schemaself-request">get_schema(self, request)</a></h3>
-<p>Returns a <code>coreapi.Document</code> instance that represents the API schema.</p>
-<pre><code>@api_view
-@renderer_classes([renderers.OpenAPIRenderer])
-def schema_view(request):
-    generator = schemas.SchemaGenerator(title='Bookings API')
-    return Response(generator.get_schema())
-</code></pre>
-<p>The <code>request</code> argument is optional, and may be used if you want to apply per-user
-permissions to the resulting schema generation.</p>
-<h3 id="get_linksself-request"><a class="toclink" href="#get_linksself-request">get_links(self, request)</a></h3>
-<p>Return a nested dictionary containing all the links that should be included in the API schema.</p>
-<p>This is a good point to override if you want to modify the resulting structure of the generated schema,
-as you can build a new dictionary with a different layout.</p>
-<h2 id="autoschema"><a class="toclink" href="#autoschema">AutoSchema</a></h2>
-<p>A class that deals with introspection of individual views for schema generation.</p>
-<p><code>AutoSchema</code> is attached to <code>APIView</code> via the <code>schema</code> attribute.</p>
-<p>The <code>AutoSchema</code> constructor takes a single keyword argument  <code>manual_fields</code>.</p>
-<p><strong><code>manual_fields</code></strong>: a <code>list</code> of <code>coreapi.Field</code> instances that will be added to
-the generated fields. Generated fields with a matching <code>name</code> will be overwritten.</p>
-<pre><code>class CustomView(APIView):
-    schema = AutoSchema(manual_fields=[
-        coreapi.Field(
-            "my_extra_field",
-            required=True,
-            location="path",
-            schema=coreschema.String()
-        ),
-    ])
-</code></pre>
-<p>For more advanced customisation subclass <code>AutoSchema</code> to customise schema generation.</p>
-<pre><code>class CustomViewSchema(AutoSchema):
-    """
-    Overrides `get_link()` to provide Custom Behavior X
-    """
+<p>In order to customize the top-level schema, subclass
+<code>rest_framework.schemas.openapi.SchemaGenerator</code> and provide your subclass
+as an argument to the <code>generateschema</code> command or <code>get_schema_view()</code> helper
+function.</p>
+<h3 id="get_schemaself-requestnone-publicfalse">get_schema(self, request=None, public=False)<a class="headerlink" href="#get_schemaself-requestnone-publicfalse" title="Permanent link">&para;</a></h3>
+<p>Returns a dictionary that represents the OpenAPI schema:</p>
+<div class="language-text highlight"><pre><span></span><code>generator = SchemaGenerator(title='Stock Prices API')
+schema = generator.get_schema()
+</code></pre></div>
+<p>The <code>request</code> argument is optional, and may be used if you want to apply
+per-user permissions to the resulting schema generation.</p>
+<p>This is a good point to override if you want to customize the generated
+dictionary For example you might wish to add terms of service to the <a href="https://swagger.io/specification/#infoObject">top-level
+<code>info</code> object</a>:</p>
+<div class="language-text highlight"><pre><span></span><code>class TOSSchemaGenerator(SchemaGenerator):
+    def get_schema(self, *args, **kwargs):
+        schema = super().get_schema(*args, **kwargs)
+        schema["info"]["termsOfService"] = "https://example.com/tos.html"
+        return schema
+</code></pre></div>
+<h2 id="autoschema">AutoSchema<a class="headerlink" href="#autoschema" title="Permanent link">&para;</a></h2>
+<p><strong>Per-View Customization</strong></p>
+<div class="language-python highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework.schemas.openapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoSchema</span>
+</code></pre></div>
+<p>By default, view introspection is performed by an <code>AutoSchema</code> instance
+accessible via the <code>schema</code> attribute on <code>APIView</code>.</p>
+<div class="language-text highlight"><pre><span></span><code>auto_schema = some_view.schema
+</code></pre></div>
+<p><code>AutoSchema</code> provides the OpenAPI elements needed for each view, request method
+and path:</p>
+<ul>
+<li>A list of <a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.2.md#componentsObject">OpenAPI components</a>. In DRF terms these are
+  mappings of serializers that describe request and response bodies.</li>
+<li>The appropriate <a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.2.md#operationObject">OpenAPI operation object</a> that describes
+  the endpoint, including path and query parameters for pagination, filtering,
+  and so on.</li>
+</ul>
+<div class="language-python highlight"><pre><span></span><code><span class="n">components</span> <span class="o">=</span> <span class="n">auto_schema</span><span class="o">.</span><span class="n">get_components</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">operation</span> <span class="o">=</span> <span class="n">auto_schema</span><span class="o">.</span><span class="n">get_operation</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</code></pre></div>
+<p>In compiling the schema, <code>SchemaGenerator</code> calls <code>get_components()</code> and
+<code>get_operation()</code> for each view, allowed method, and path.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The automatic introspection of components, and many operation
+parameters relies on the relevant attributes and methods of
+<code>GenericAPIView</code>: <code>get_serializer()</code>, <code>pagination_class</code>, <code>filter_backends</code>,
+etc. For basic <code>APIView</code> subclasses, default introspection is essentially limited to
+the URL kwarg path parameters for this reason.</p>
+</div>
+<p><code>AutoSchema</code> encapsulates the view introspection needed for schema generation.
+Because of this all the schema generation logic is kept in a single place,
+rather than being spread around the already extensive view, serializer and
+field APIs.</p>
+<p>Keeping with this pattern, try not to let schema logic leak into your own
+views, serializers, or fields when customizing the schema generation. You might
+be tempted to do something like this:</p>
+<div class="language-python highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CustomSchema</span><span class="p">(</span><span class="n">AutoSchema</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    AutoSchema subclass using schema_extra_info on the view.</span>
+<span class="sd">    """</span>
 
-    def get_link(self, path, method, base_url):
-        link = super().get_link(path, method, base_url)
-        # Do something to customize link here...
-        return link
+    <span class="o">...</span>
 
-class MyView(APIView):
-  schema = CustomViewSchema()
-</code></pre>
-<p>The following methods are available to override.</p>
-<h3 id="get_linkself-path-method-base_url"><a class="toclink" href="#get_linkself-path-method-base_url">get_link(self, path, method, base_url)</a></h3>
-<p>Returns a <code>coreapi.Link</code> instance corresponding to the given view.</p>
-<p>This is the main entry point.
-You can override this if you need to provide custom behaviors for particular views.</p>
-<h3 id="get_descriptionself-path-method"><a class="toclink" href="#get_descriptionself-path-method">get_description(self, path, method)</a></h3>
-<p>Returns a string to use as the link description. By default this is based on the
-view docstring as described in the "Schemas as Documentation" section above.</p>
-<h3 id="get_encodingself-path-method"><a class="toclink" href="#get_encodingself-path-method">get_encoding(self, path, method)</a></h3>
-<p>Returns a string to indicate the encoding for any request body, when interacting
-with the given view. Eg. <code>'application/json'</code>. May return a blank string for views
-that do not expect a request body.</p>
-<h3 id="get_path_fieldsself-path-method"><a class="toclink" href="#get_path_fieldsself-path-method">get_path_fields(self, path, method):</a></h3>
-<p>Return a list of <code>coreapi.Field()</code> instances. One for each path parameter in the URL.</p>
-<h3 id="get_serializer_fieldsself-path-method"><a class="toclink" href="#get_serializer_fieldsself-path-method">get_serializer_fields(self, path, method)</a></h3>
-<p>Return a list of <code>coreapi.Field()</code> instances. One for each field in the serializer class used by the view.</p>
-<h3 id="get_pagination_fieldsself-path-method"><a class="toclink" href="#get_pagination_fieldsself-path-method">get_pagination_fields(self, path, method)</a></h3>
-<p>Return a list of <code>coreapi.Field()</code> instances, as returned by the <code>get_schema_fields()</code> method on any pagination class used by the view.</p>
-<h3 id="get_filter_fieldsself-path-method"><a class="toclink" href="#get_filter_fieldsself-path-method">get_filter_fields(self, path, method)</a></h3>
-<p>Return a list of <code>coreapi.Field()</code> instances, as returned by the <code>get_schema_fields()</code> method of any filter classes used by the view.</p>
-<h3 id="get_manual_fieldsself-path-method"><a class="toclink" href="#get_manual_fieldsself-path-method">get_manual_fields(self, path, method)</a></h3>
-<p>Return a list of <code>coreapi.Field()</code> instances to be added to or replace generated fields. Defaults to (optional) <code>manual_fields</code> passed to <code>AutoSchema</code> constructor.</p>
-<p>May be overridden to customise manual fields by <code>path</code> or <code>method</code>. For example, a per-method adjustment may look like this:</p>
-<pre><code class="python">def get_manual_fields(self, path, method):
-    &quot;&quot;&quot;Example adding per-method fields.&quot;&quot;&quot;
 
-    extra_fields = []
-    if method=='GET':
-        extra_fields = # ... list of extra fields for GET ...
-    if method=='POST':
-        extra_fields = # ... list of extra fields for POST ...
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomView</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+    <span class="n">schema</span> <span class="o">=</span> <span class="n">CustomSchema</span><span class="p">()</span>
+    <span class="n">schema_extra_info</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># some extra info</span>
+</code></pre></div>
+<p>Here, the <code>AutoSchema</code> subclass goes looking for <code>schema_extra_info</code> on the
+view. This is <em>OK</em> (it doesn't actually hurt) but it means you'll end up with
+your schema logic spread out in a number of different places.</p>
+<p>Instead try to subclass <code>AutoSchema</code> such that the <code>extra_info</code> doesn't leak
+out into the view:</p>
+<div class="language-python highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">BaseSchema</span><span class="p">(</span><span class="n">AutoSchema</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    AutoSchema subclass that knows how to use extra_info.</span>
+<span class="sd">    """</span>
 
-    manual_fields = super().get_manual_fields(path, method)
-    return manual_fields + extra_fields
-</code></pre>
+    <span class="o">...</span>
 
-<h3 id="update_fieldsfields-update_with"><a class="toclink" href="#update_fieldsfields-update_with">update_fields(fields, update_with)</a></h3>
-<p>Utility <code>staticmethod</code>. Encapsulates logic to add or replace fields from a list
-by <code>Field.name</code>. May be overridden to adjust replacement criteria.</p>
-<h2 id="manualschema"><a class="toclink" href="#manualschema">ManualSchema</a></h2>
-<p>Allows manually providing a list of <code>coreapi.Field</code> instances for the schema,
-plus an optional description.</p>
-<pre><code>class MyView(APIView):
-  schema = ManualSchema(fields=[
-        coreapi.Field(
-            "first_field",
-            required=True,
-            location="path",
-            schema=coreschema.String()
-        ),
-        coreapi.Field(
-            "second_field",
-            required=True,
-            location="path",
-            schema=coreschema.String()
-        ),
-    ]
-  )
-</code></pre>
-<p>The <code>ManualSchema</code> constructor takes two arguments:</p>
-<p><strong><code>fields</code></strong>: A list of <code>coreapi.Field</code> instances. Required.</p>
-<p><strong><code>description</code></strong>: A string description. Optional.</p>
-<p><strong><code>encoding</code></strong>: Default <code>None</code>. A string encoding, e.g <code>application/json</code>. Optional.</p>
-<hr />
-<h2 id="core-api"><a class="toclink" href="#core-api">Core API</a></h2>
-<p>This documentation gives a brief overview of the components within the <code>coreapi</code>
-package that are used to represent an API schema.</p>
-<p>Note that these classes are imported from the <code>coreapi</code> package, rather than
-from the <code>rest_framework</code> package.</p>
-<h3 id="document"><a class="toclink" href="#document">Document</a></h3>
-<p>Represents a container for the API schema.</p>
-<h4 id="title_1"><a class="toclink" href="#title_1"><code>title</code></a></h4>
-<p>A name for the API.</p>
-<h4 id="url_1"><a class="toclink" href="#url_1"><code>url</code></a></h4>
-<p>A canonical URL for the API.</p>
-<h4 id="content"><a class="toclink" href="#content"><code>content</code></a></h4>
-<p>A dictionary, containing the <code>Link</code> objects that the schema contains.</p>
-<p>In order to provide more structure to the schema, the <code>content</code> dictionary
-may be nested, typically to a second level. For example:</p>
-<pre><code>content={
-    "bookings": {
-        "list": Link(...),
-        "create": Link(...),
-        ...
-    },
-    "venues": {
-        "list": Link(...),
-        ...
-    },
+
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomSchema</span><span class="p">(</span><span class="n">BaseSchema</span><span class="p">):</span>
+    <span class="n">extra_info</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># some extra info</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomView</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+    <span class="n">schema</span> <span class="o">=</span> <span class="n">CustomSchema</span><span class="p">()</span>
+</code></pre></div>
+<p>This style is slightly more verbose but maintains the encapsulation of the
+schema related code. It's more <em>cohesive</em> in the <em>parlance</em>. It'll keep the
+rest of your API code more tidy.</p>
+<p>If an option applies to many view classes, rather than creating a specific
+subclass per-view, you may find it more convenient to allow specifying the
+option as an <code>__init__()</code> kwarg to your base <code>AutoSchema</code> subclass:</p>
+<div class="language-python highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CustomSchema</span><span class="p">(</span><span class="n">BaseSchema</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># store extra_info for later</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extra_info</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"extra_info"</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomView</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+    <span class="n">schema</span> <span class="o">=</span> <span class="n">CustomSchema</span><span class="p">(</span><span class="n">extra_info</span><span class="o">=...</span><span class="p">)</span>  <span class="c1"># some extra info</span>
+</code></pre></div>
+<p>This saves you having to create a custom subclass per-view for a commonly used option.</p>
+<p>Not all <code>AutoSchema</code> methods expose related <code>__init__()</code> kwargs, but those for
+the more commonly needed options do.</p>
+<h3 id="autoschema-methods"><code>AutoSchema</code> methods<a class="headerlink" href="#autoschema-methods" title="Permanent link">&para;</a></h3>
+<h4 id="get_components"><code>get_components()</code><a class="headerlink" href="#get_components" title="Permanent link">&para;</a></h4>
+<p>Generates the OpenAPI components that describe request and response bodies,
+deriving their properties from the serializer.</p>
+<p>Returns a dictionary mapping the component name to the generated
+representation. By default this has just a single pair but you may override
+<code>get_components()</code> to return multiple pairs if your view uses multiple
+serializers.</p>
+<h4 id="get_component_name"><code>get_component_name()</code><a class="headerlink" href="#get_component_name" title="Permanent link">&para;</a></h4>
+<p>Computes the component's name from the serializer.</p>
+<p>You may see warnings if your API has duplicate component names. If so you can override <code>get_component_name()</code> or pass the <code>component_name</code> <code>__init__()</code> kwarg (see below) to provide different names.</p>
+<h4 id="get_reference"><code>get_reference()</code><a class="headerlink" href="#get_reference" title="Permanent link">&para;</a></h4>
+<p>Returns a reference to the serializer component. This may be useful if you override <code>get_schema()</code>.</p>
+<h4 id="map_serializer"><code>map_serializer()</code><a class="headerlink" href="#map_serializer" title="Permanent link">&para;</a></h4>
+<p>Maps serializers to their OpenAPI representations.</p>
+<p>Most serializers should conform to the standard OpenAPI <code>object</code> type, but you may
+wish to override <code>map_serializer()</code> in order to customize this or other
+serializer-level fields.</p>
+<h4 id="map_field"><code>map_field()</code><a class="headerlink" href="#map_field" title="Permanent link">&para;</a></h4>
+<p>Maps individual serializer fields to their schema representation. The base implementation
+will handle the default fields that Django REST Framework provides.</p>
+<p>For <code>SerializerMethodField</code> instances, for which the schema is unknown, or custom field subclasses you should override <code>map_field()</code> to generate the correct schema:</p>
+<div class="language-python highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CustomSchema</span><span class="p">(</span><span class="n">AutoSchema</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Extension of ``AutoSchema`` to add support for custom field schemas."""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">map_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">):</span>
+        <span class="c1"># Handle SerializerMethodFields or custom fields here...</span>
+        <span class="c1"># ...</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">map_field</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
+</code></pre></div>
+<p>Authors of third-party packages should aim to provide an <code>AutoSchema</code> subclass,
+and a mixin, overriding <code>map_field()</code> so that users can easily generate schemas
+for their custom fields.</p>
+<h4 id="get_tags"><code>get_tags()</code><a class="headerlink" href="#get_tags" title="Permanent link">&para;</a></h4>
+<p>OpenAPI groups operations by tags. By default tags taken from the first path
+segment of the routed URL. For example, a URL like <code>/users/{id}/</code> will generate
+the tag <code>users</code>.</p>
+<p>You can pass an <code>__init__()</code> kwarg to manually specify tags (see below), or
+override <code>get_tags()</code> to provide custom logic.</p>
+<h4 id="get_operation"><code>get_operation()</code><a class="headerlink" href="#get_operation" title="Permanent link">&para;</a></h4>
+<p>Returns the <a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.2.md#operationObject">OpenAPI operation object</a> that describes the
+endpoint, including path and query parameters for pagination, filtering, and so
+on.</p>
+<p>Together with <code>get_components()</code>, this is the main entry point to the view
+introspection.</p>
+<h4 id="get_operation_id"><code>get_operation_id()</code><a class="headerlink" href="#get_operation_id" title="Permanent link">&para;</a></h4>
+<p>There must be a unique <a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.2.md#fixed-fields-17">operationid</a> for each operation.
+By default the <code>operationId</code> is deduced from the model name, serializer name or
+view name. The operationId looks like "listItems", "retrieveItem",
+"updateItem", etc. The <code>operationId</code> is camelCase by convention.</p>
+<h4 id="get_operation_id_base"><code>get_operation_id_base()</code><a class="headerlink" href="#get_operation_id_base" title="Permanent link">&para;</a></h4>
+<p>If you have several views with the same model name, you may see duplicate
+operationIds.</p>
+<p>In order to work around this, you can override <code>get_operation_id_base()</code> to
+provide a different base for name part of the ID.</p>
+<h4 id="get_serializer"><code>get_serializer()</code><a class="headerlink" href="#get_serializer" title="Permanent link">&para;</a></h4>
+<p>If the view has implemented <code>get_serializer()</code>, returns the result.</p>
+<h4 id="get_request_serializer"><code>get_request_serializer()</code><a class="headerlink" href="#get_request_serializer" title="Permanent link">&para;</a></h4>
+<p>By default returns <code>get_serializer()</code> but can be overridden to
+differentiate between request and response objects.</p>
+<h4 id="get_response_serializer"><code>get_response_serializer()</code><a class="headerlink" href="#get_response_serializer" title="Permanent link">&para;</a></h4>
+<p>By default returns <code>get_serializer()</code> but can be overridden to
+differentiate between request and response objects.</p>
+<h3 id="autoschema__init__-kwargs"><code>AutoSchema.__init__()</code> kwargs<a class="headerlink" href="#autoschema__init__-kwargs" title="Permanent link">&para;</a></h3>
+<p><code>AutoSchema</code> provides a number of <code>__init__()</code> kwargs that can be used for
+common customizations, if the default generated values are not appropriate.</p>
+<p>The available kwargs are:</p>
+<ul>
+<li><code>tags</code>: Specify a list of tags.</li>
+<li><code>component_name</code>: Specify the component name.</li>
+<li><code>operation_id_base</code>: Specify the resource-name part of operation IDs.</li>
+</ul>
+<p>You pass the kwargs when declaring the <code>AutoSchema</code> instance on your view:</p>
+<div class="language-text highlight"><pre><span></span><code>class PetDetailView(generics.RetrieveUpdateDestroyAPIView):
+    schema = AutoSchema(
+        tags=['Pets'],
+        component_name='Pet',
+        operation_id_base='Pet',
+    )
     ...
-}
-</code></pre>
-<h3 id="link"><a class="toclink" href="#link">Link</a></h3>
-<p>Represents an individual API endpoint.</p>
-<h4 id="url_2"><a class="toclink" href="#url_2"><code>url</code></a></h4>
-<p>The URL of the endpoint. May be a URI template, such as <code>/users/{username}/</code>.</p>
-<h4 id="action"><a class="toclink" href="#action"><code>action</code></a></h4>
-<p>The HTTP method associated with the endpoint. Note that URLs that support
-more than one HTTP method, should correspond to a single <code>Link</code> for each.</p>
-<h4 id="fields"><a class="toclink" href="#fields"><code>fields</code></a></h4>
-<p>A list of <code>Field</code> instances, describing the available parameters on the input.</p>
-<h4 id="description"><a class="toclink" href="#description"><code>description</code></a></h4>
-<p>A short description of the meaning and intended usage of the endpoint.</p>
-<h3 id="field"><a class="toclink" href="#field">Field</a></h3>
-<p>Represents a single input parameter on a given API endpoint.</p>
-<h4 id="name"><a class="toclink" href="#name"><code>name</code></a></h4>
-<p>A descriptive name for the input.</p>
-<h4 id="required"><a class="toclink" href="#required"><code>required</code></a></h4>
-<p>A boolean, indicated if the client is required to included a value, or if
-the parameter can be omitted.</p>
-<h4 id="location"><a class="toclink" href="#location"><code>location</code></a></h4>
-<p>Determines how the information is encoded into the request. Should be one of
-the following strings:</p>
-<p><strong>"path"</strong></p>
-<p>Included in a templated URI. For example a <code>url</code> value of <code>/products/{product_code}/</code> could be used together with a <code>"path"</code> field, to handle API inputs in a URL path such as <code>/products/slim-fit-jeans/</code>.</p>
-<p>These fields will normally correspond with <a href="https://docs.djangoproject.com/en/stable/topics/http/urls/#named-groups">named arguments in the project URL conf</a>.</p>
-<p><strong>"query"</strong></p>
-<p>Included as a URL query parameter. For example <code>?search=sale</code>. Typically for <code>GET</code> requests.</p>
-<p>These fields will normally correspond with pagination and filtering controls on a view.</p>
-<p><strong>"form"</strong></p>
-<p>Included in the request body, as a single item of a JSON object or HTML form. For example <code>{"colour": "blue", ...}</code>. Typically for <code>POST</code>, <code>PUT</code> and <code>PATCH</code> requests. Multiple <code>"form"</code> fields may be included on a single link.</p>
-<p>These fields will normally correspond with serializer fields on a view.</p>
-<p><strong>"body"</strong></p>
-<p>Included as the complete request body. Typically for <code>POST</code>, <code>PUT</code> and <code>PATCH</code> requests. No more than one <code>"body"</code> field may exist on a link. May not be used together with <code>"form"</code> fields.</p>
-<p>These fields will normally correspond with views that use <code>ListSerializer</code> to validate the request input, or with file upload views.</p>
-<h4 id="encoding"><a class="toclink" href="#encoding"><code>encoding</code></a></h4>
-<p><strong>"application/json"</strong></p>
-<p>JSON encoded request content. Corresponds to views using <code>JSONParser</code>.
-Valid only if either one or more <code>location="form"</code> fields, or a single
-<code>location="body"</code> field is included on the <code>Link</code>.</p>
-<p><strong>"multipart/form-data"</strong></p>
-<p>Multipart encoded request content. Corresponds to views using <code>MultiPartParser</code>.
-Valid only if one or more <code>location="form"</code> fields is included on the <code>Link</code>.</p>
-<p><strong>"application/x-www-form-urlencoded"</strong></p>
-<p>URL encoded request content. Corresponds to views using <code>FormParser</code>. Valid
-only if one or more <code>location="form"</code> fields is included on the <code>Link</code>.</p>
-<p><strong>"application/octet-stream"</strong></p>
-<p>Binary upload request content. Corresponds to views using <code>FileUploadParser</code>.
-Valid only if a <code>location="body"</code> field is included on the <code>Link</code>.</p>
-<h4 id="description_1"><a class="toclink" href="#description_1"><code>description</code></a></h4>
-<p>A short description of the meaning and intended usage of the input field.</p>
-<hr />
-<h1 id="third-party-packages"><a class="toclink" href="#third-party-packages">Third party packages</a></h1>
-<h2 id="drf-yasg-yet-another-swagger-generator"><a class="toclink" href="#drf-yasg-yet-another-swagger-generator">drf-yasg - Yet Another Swagger Generator</a></h2>
-<p><a href="https://github.com/axnsan12/drf-yasg/">drf-yasg</a> generates <a href="https://openapis.org/">OpenAPI</a> documents suitable for code generation - nested schemas,
-named models, response bodies, enum/pattern/min/max validators, form parameters, etc.</p>
-            
+</code></pre></div>
+<p>Assuming a <code>Pet</code> model and <code>PetSerializer</code> serializer, the kwargs in this
+example are probably not needed. Often, though, you'll need to pass the kwargs
+if you have multiple view targeting the same model, or have multiple views with
+identically named serializers.</p>
+<p>If your views have related customizations that are needed frequently, you can
+create a base <code>AutoSchema</code> subclass for your project that takes additional
+<code>__init__()</code> kwargs to save subclassing <code>AutoSchema</code> for each view.</p>
 
-          </div> <!--/span-->
-        </div> <!--/row-->
-      </div> <!--/.fluid-container-->
-    </div> <!--/.body content-->
-    <div id="push"></div>
-  </div> <!--/.wrapper -->
 
-  <footer class="span12">
-    <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.
-    </p>
-  </footer>
 
-  <!-- Le javascript
-  ================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
-  <script src="../../js/jquery-1.8.1-min.js"></script>
-  <script src="../../js/prettify-1.0.js"></script>
-  <script src="../../js/bootstrap-2.1.1-min.js"></script>
-  <script async src="https://fund.django-rest-framework.org/sidebar_include.js"></script>
-  <script>var base_url = '../..';</script>
-  <script src="../../mkdocs/js/require.js"></script>
-  <script src="../../js/theme.js"></script>
 
-  <script>
-    var shiftWindow = function() {
-      scrollBy(0, -50)
-    };
 
-    if (location.hash) shiftWindow();
-    window.addEventListener("hashchange", shiftWindow);
 
-    $('.dropdown-menu').on('click touchstart', function(event) {
-      event.stopPropagation();
-    });
 
-    // Dynamically force sidenav/dropdown to no higher than browser window
-    $('.side-nav, .dropdown-menu').css('max-height', window.innerHeight - 130);
+  
+  
 
-    $(function() {
-      $(window).resize(function() {
-        $('.side-nav, .dropdown-menu').css('max-height', window.innerHeight - 130);
-      });
-    });
-  </script>
-</body>
 
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.tabs.link", "content.code.annotate", "content.code.copy", "navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress", "navigation.path", "navigation.sections", "navigation.top", "navigation.tracking", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../theme/js/prettify-1.0.js"></script>
+      
+    
+    <script>
+        document$.subscribe(function() {
+            document.querySelectorAll('pre code').forEach(code => {
+                code.parentElement.classList.add('prettyprint', 'well');
+            });
+            prettyPrint();
+        });
+    </script>
+
+  </body>
 </html>
